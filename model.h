@@ -2,6 +2,7 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+
 typedef struct Card
 {
     char aName[18];
@@ -15,5 +16,12 @@ typedef struct Card
     float fBalance;
     int nDel;           //删除标识(0-未删除; 1-删除)
 }Card;
+
+typedef struct CardNode
+{
+    Card data;
+    struct CardNode* next;
+}CardNode, *lpCardNode;
+
 
 #endif // MODEL_H

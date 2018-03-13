@@ -4,8 +4,10 @@
 #define CARD_SERVICE_H
 
 
-int addCard(Card card);
+bool addCard(Card card);
 Card* queryCard(const char* pName);
+bool initCardList();
+void releaseCardList();
 
 class card_service
 {

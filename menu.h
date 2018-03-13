@@ -4,6 +4,7 @@
 int outputMenu();
 void add();
 void query();
+void exit();
 int getSize(const char* pInput);
 void copyInfo(const char aInput[], char aOutput[], int nSize);
 

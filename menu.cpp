@@ -61,7 +61,7 @@ int outputMenu()
 
         break;
     case 0:
-
+        exit();
         break;
     default:
         break;
@@ -111,8 +111,12 @@ void add()
     printf("卡号\t\t\t密码\t\t状态\t开卡金额\n");
     printf("%-18s\t%-8s\t%d\t%0.1f\n", card.aName, card.aPwd, card.nStatus, card.fBalance);
 
+    printf("添加到链表..\n");
+
     if(addCard(card)){
         printf("添加成功!\n");
+    }else{
+        printf("添加失败,请检查!\n");
     }
 }
 
@@ -150,7 +154,11 @@ void query()
 }
 
 
-
+void exit()
+{
+    releaseCardList();
+    cout << "释放内存.." << endl;
+}
 
 
 
