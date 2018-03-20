@@ -108,16 +108,14 @@ void add()
     endTime->tm_year = startTime->tm_year + 1;
     card.tEnd = mktime(endTime);
 
-    printf("卡号\t\t\t密码\t\t状态\t开卡金额\n");
-    printf("%-18s\t%-8s\t%d\t%0.1f\n", card.aName, card.aPwd, card.nStatus, card.fBalance);
-
     printf("添加到链表..\n");
-
     if(addCard(card)){
         printf("添加成功!\n");
     }else{
         printf("添加失败,请检查!\n");
     }
+    printf("卡号\t\t\t密码\t\t状态\t开卡金额\n");
+    printf("%-18s\t%-8s\t%d\t%0.1f\n", card.aName, card.aPwd, card.nStatus, card.fBalance);
 }
 
 /**********查询卡***********/
@@ -129,25 +127,31 @@ void query()
     cout << "输入卡号(长度为1～18个字符): ";
     cin >> aName;
 
-    pCard = queryCard(aName);
-    if(pCard != NULL)
+    int nIndex = 0;
+    pCard = queryCard(aName, &nIndex);
+    if(pCard != NULL && nIndex != 0)
     {
-        Card card = *pCard;
-        char aLastTime[20] = {'\0'};
-        timeToString(card.tLastTime, aLastTime);
+        printf("查询到%d条结果:\n", nIndex);
         printf("卡号\t\t\t"
                "状态\t"
                "余额\t"
                "累计使用\t"
                "使用次数\t"
                "上次使用时间\n");
-        printf("%-18s\t"
-               "%d\t"
-               "%0.1f\t"
-               "%0.1f\t\t"
-               "%-8d\t"
-               "%-20s\n",
-               card.aName, card.nStatus, card.fBalance, card.fTotalUse, card.nUseCount, aLastTime);
+        for (int i = 0; i < nIndex; i++){
+            Card card = pCard[i];
+            char aLastTime[20] = {'\0'};
+            timeToString(card.tLastTime, aLastTime);
+
+            printf("%-18s\t"
+                   "%d\t"
+                   "%0.1f\t"
+                   "%0.1f\t\t"
+                   "%-8d\t"
+                   "%-20s\n",
+                   card.aName, card.nStatus, card.fBalance, card.fTotalUse, card.nUseCount, aLastTime);
+        }
+
     }else{
         printf("未找到!\n");
     }

@@ -5,8 +5,8 @@
 
 
 bool addCard(Card card);
-Card* queryCard(const char* pName);
-bool initCardList();
+Card* queryCard(const char* pName, int *pIndex);
+void initCardList();
 void releaseCardList();
 
 class card_service

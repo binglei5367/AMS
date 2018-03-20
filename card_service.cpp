@@ -9,15 +9,13 @@ int nCount = 0;
 lpCardNode cardList = NULL;
 lpCardNode head = NULL;
 
-bool initCardList()
+void initCardList()
 {
     head = (lpCardNode)malloc(sizeof(cardList));
     if(head != NULL){
         head->next = NULL;
         cardList = head;
-        return true;
     }
-    return false;
 }
 
 void releaseCardList()
@@ -25,9 +23,9 @@ void releaseCardList()
     lpCardNode cur = NULL;
     if(cardList != NULL){
         while(cardList->next != NULL){
-            cur = cardList->next;
+            cur = cardList;
+            cardList = cardList->next;
             free(cur);
-            cur = NULL;
         }
     }
 }
@@ -42,9 +40,8 @@ bool addCard(Card card)
 //    aCard[nCount] = card;
 
     if(cardList == NULL){
-        if(initCardList()){
-            printf("链表初始化成功!\n");
-        }else{
+        initCardList();
+        if(cardList == NULL){
             printf("链表初始化失败!\n");
             return false;
         }
@@ -55,8 +52,9 @@ bool addCard(Card card)
     if(cur != NULL){
         cur->data = card;
         cur->next = NULL;
+        printf("结点分配内存空间成功!\n");
     }else{
-        printf("分配内存空间失败!\n");
+        printf("结点分配内存空间失败!\n");
         return false;
     }
 
@@ -64,13 +62,14 @@ bool addCard(Card card)
         cardList = cardList->next;
     }
     cardList->next = cur;
+    cardList = head;
 
     nCount++;
     printf("结点数: %d\n", nCount);
     return true;
 }
 
-Card* queryCard(const char* pName)
+Card* queryCard(const char* pName, int* pIndex)
 {
 //    for(int i = 0; i < nCount; i++)
 //    {
@@ -80,6 +79,22 @@ Card* queryCard(const char* pName)
 //    return NULL;
 
     lpCardNode p = cardList;
+    Card* pCard = NULL;
+    pCard = (Card*)malloc(sizeof(Card));
+    *pIndex = 0;
+
+    while(p != NULL){
+        if(strstr(p->data.aName, pName) != NULL){
+            pCard[*pIndex] = p->data;
+            (*pIndex)++;
+            pCard = (Card*)realloc(pCard, ((*pIndex) + 1) * sizeof(Card));
+            p = p->next;
+//            return &p->data;
+        }else{
+            p = p->next;
+        }
+    }
+    return pCard;
 
 }
 
