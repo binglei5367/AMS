@@ -3,6 +3,7 @@
 #include "card_service.h"
 #include "global.h"
 #include "model.h"
+#include "card_file.h"
 
 Card aCard[50];
 int nCount = 0;
@@ -39,34 +40,44 @@ bool addCard(Card card)
 //    }
 //    aCard[nCount] = card;
 
-    if(cardList == NULL){
-        initCardList();
-        if(cardList == NULL){
-            printf("链表初始化失败!\n");
-            return false;
-        }
-    }
+//********************链表存储实现***********************
+//    if(cardList == NULL){
+//        initCardList();
+//        if(cardList == NULL){
+//            printf("链表初始化失败!\n");
+//            return false;
+//        }
+//    }
 
-    lpCardNode cur = NULL;
-    cur = (lpCardNode)malloc(sizeof(CardNode));
-    if(cur != NULL){
-        cur->data = card;
-        cur->next = NULL;
-        printf("结点分配内存空间成功!\n");
+//    lpCardNode cur = NULL;
+//    cur = (lpCardNode)malloc(sizeof(CardNode));
+//    if(cur != NULL){
+//        cur->data = card;
+//        cur->next = NULL;
+//        printf("结点分配内存空间成功!\n");
+//    }else{
+//        printf("结点分配内存空间失败!\n");
+//        return false;
+//    }
+
+//    while(cardList->next != NULL){
+//        cardList = cardList->next;
+//    }
+//    cardList->next = cur;
+//    cardList = head;
+
+//    nCount++;
+//    printf("结点数: %d\n", nCount);
+//    return true;
+//****************************************************
+
+    if(saveCard(&card, CARDPATH)){
+        return true;
     }else{
-        printf("结点分配内存空间失败!\n");
         return false;
     }
 
-    while(cardList->next != NULL){
-        cardList = cardList->next;
-    }
-    cardList->next = cur;
-    cardList = head;
 
-    nCount++;
-    printf("结点数: %d\n", nCount);
-    return true;
 }
 
 Card* queryCard(const char* pName, int* pIndex)
