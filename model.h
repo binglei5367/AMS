@@ -1,7 +1,7 @@
-#include <time.h>
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <time.h>
 
 typedef struct Card
 {

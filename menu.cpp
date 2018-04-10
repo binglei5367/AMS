@@ -4,7 +4,7 @@
 #include "menu.h"
 #include "model.h"
 #include "card_service.h"
-#include "tool.c"
+#include "tool.h"
 
 
 using namespace std;
@@ -69,7 +69,7 @@ int outputMenu()
     return nSelection;
 }
 
-/**********添加卡***********/
+/**************************添加卡*****************************/
 void add()
 {
     cout << "-------添加卡-------" <<endl;
@@ -108,7 +108,6 @@ void add()
     endTime->tm_year = startTime->tm_year + 1;
     card.tEnd = mktime(endTime);
 
-    printf("添加到链表..\n");
     if(addCard(card)){
         printf("添加成功!\n");
     }else{
@@ -118,7 +117,7 @@ void add()
     printf("%-18s\t%-8s\t%d\t%0.1f\n", card.aName, card.aPwd, card.nStatus, card.fBalance);
 }
 
-/**********查询卡***********/
+/**************************查询卡**************************/
 void query()
 {
     cout << "-------查询卡-------" <<endl;

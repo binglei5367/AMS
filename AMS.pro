@@ -7,7 +7,7 @@ SOURCES += main.cpp \
     menu.cpp \
     card_service.cpp \
     card_file.cpp \
-    tool.c
+    tool.cpp
 
 HEADERS += \
     menu.h \
@@ -15,4 +15,5 @@ HEADERS += \
     card_service.h \
     card_file.h \
     model.h \
-    global.h
+    global.h \
+    tool.h

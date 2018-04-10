@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string.h>
 #include "card_service.h"
+#include "card_file.h"
 #include "global.h"
 #include "model.h"
-#include "card_file.h"
+
 
 Card aCard[50];
 int nCount = 0;
@@ -70,6 +71,11 @@ bool addCard(Card card)
 //    printf("结点数: %d\n", nCount);
 //    return true;
 //****************************************************
+//    char path[20] = {"data\\card.txt"};
+
+
+
+
 
     if(saveCard(&card, CARDPATH)){
         return true;
@@ -106,8 +112,21 @@ Card* queryCard(const char* pName, int* pIndex)
         }
     }
     return pCard;
+}
+
+
+bool getCard()
+{
+    int nCount = 0;
+    int i = 0;
+    Card* pCard = NULL;
+
+    return TRUE;
 
 }
+
+
+
 
 card_service::card_service()
 {

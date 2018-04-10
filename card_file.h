@@ -4,6 +4,8 @@
 #include "model.h"
 
 bool saveCard(const Card* pCard, const char *pPath);
+bool readCard(Card* pCard, const char *pPath);
+Card parseCard(char *pBuf);
 
 class card_file
 {
