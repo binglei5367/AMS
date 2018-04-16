@@ -123,7 +123,7 @@ void query()
     cout << "-------查询卡-------" <<endl;
     char aName[18];
     Card* pCard = NULL;
-    cout << "输入卡号(长度为1～18个字符): ";
+    cout << "输入查询卡号(长度为1～18个字符): ";
     cin >> aName;
 
     int nIndex = 0;

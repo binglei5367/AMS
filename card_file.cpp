@@ -55,16 +55,21 @@ bool saveCard(const Card* pCard, const char* pPath)
 
 bool readCard(Card* pCard, const char* pPath)
 {
+    //以只读方式打开文件
     FILE* fp = NULL;
     if((fp = fopen(pPath, "r")) == NULL){
+        printf("文件打开失败！\n");
         return false;
     }
 
+    //遍历文件
     char aBuf[CARDCHARNUM] = {0};
     while(!feof(fp)){
-        memset(aBuf, 0, CARDCHARNUM);
+        memset(aBuf, 0, CARDCHARNUM);//清空数组
         if(fgets(aBuf, CARDCHARNUM, fp) != NULL){
+//            printf("遍历数据文件data.txt\n");
             if(strlen(aBuf) > 0){
+//                printf("读取一条账户信息\n");
                 pCard[nIndex] = parseCard(aBuf);
                 nIndex++;
             }
@@ -113,7 +118,28 @@ Card parseCard(char *pBuf)
     card.fBalance = atof(flag[8]);
     card.nDel = atoi(flag[9]);
 
+//    printf("解析了一条卡信息\n");
     return card;
+}
+
+int getCardCount(const char* pPath)
+{
+    FILE* fp = NULL;
+    int nIndex = 0;
+    char aBuf[CARDCHARNUM] = {0};
+    if((fp = fopen(pPath, "r")) == NULL){
+        return 0;
+    }
+    while(!feof(fp)){
+        memset(aBuf, 0, CARDCHARNUM);
+        if(fgets(aBuf, CARDCHARNUM, fp) != NULL){
+            if(strlen(aBuf) > 0){
+                nIndex++;
+            }
+        }
+    }
+    fclose(fp);
+    return nIndex;
 }
 
 card_file::card_file()

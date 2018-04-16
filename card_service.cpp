@@ -95,6 +95,10 @@ Card* queryCard(const char* pName, int* pIndex)
 //    }
 //    return NULL;
 
+    if(!getCard()){
+        return NULL;
+    }
+    printf("card got\n");
     lpCardNode p = cardList;
     Card* pCard = NULL;
     pCard = (Card*)malloc(sizeof(Card));
@@ -118,9 +122,50 @@ Card* queryCard(const char* pName, int* pIndex)
 bool getCard()
 {
     int nCount = 0;
-    int i = 0;
-    Card* pCard = NULL;
 
+//    releaseCardList();
+//    if(cardList == NULL){
+//        initCardList();
+//    }else{
+//        printf("链表初始化失败！\n");
+//        return false;
+//    }
+    initCardList();
+//    printf("链表初始化完成\n");
+
+    lpCardNode p = cardList;
+    Card* pCard = NULL;
+    nCount = getCardCount(CARDPATH);
+//    printf("获取数量信息\n");
+//    pCard = (Card*)malloc(sizeof(Card)*nCount);
+    pCard = (Card*)malloc(sizeof(Card));
+    printf("分配内存空间\n");
+
+    if(!readCard(pCard, CARDPATH)){
+        free(pCard);
+        printf("获取卡户信息失败!\n");
+        return false;
+    }
+
+    printf("读取到%d条卡户信息\n", nCount);
+//    for(int i = 0; i < nCount; i++){
+//        pCard[i] = p->data;
+//        pCard = (Card*)realloc(pCard, (i + 1) * sizeof(Card));
+//        printf("为一条用户信息分配内存空间\n");
+//        p = p->next;
+//        printf("读取一条解析的卡户信息\n");
+//    }
+    int i = 0;
+    while(p != NULL){
+        pCard[i] = p->data;
+        pCard = (Card*)realloc(pCard, (i + 1) * sizeof(Card));
+        printf("为一条用户信息分配内存空间\n");
+        p = p->next;
+        printf("读取一条解析的卡户信息\n");
+    }
+    printf("1\n"); //***bug remain
+
+    free(pCard);
     return TRUE;
 
 }
